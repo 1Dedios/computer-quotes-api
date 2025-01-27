@@ -12,6 +12,10 @@ h1 {
   font-weight: bold;
 }
 
+h2 {
+  text-align: center;
+}
+
 nav {
   width: 80%;
   max-width: 400px;
@@ -40,6 +44,7 @@ input {
 
 button {
   margin: 5px;
+  margin-top: 20px;
   cursor: pointer;
   border: 2px solid #fff;
   background-color: #2e4a99;
@@ -64,4 +69,13 @@ button:hover {
 
 .quote-text {
   font-style: italic;
+}
+
+.search {
+  margin-top: 20px;
+}
+
+#author {
+  display: block;
+  justify-self: center;
 }
