@@ -8,3 +8,8 @@ const PORT = process.env.PORT || 4001;
 
 app.use(express.static('public'));
 
+app.get('/', (req, res, next) => {
+  res.status(200).send('public');
+});
+
+app.listen(PORT);
