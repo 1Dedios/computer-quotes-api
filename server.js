@@ -12,4 +12,9 @@ app.get('/', (req, res, next) => {
   res.status(200).send('public');
 });
 
+app.get('/api/quotes/random', (req, res, next) => {
+  const randomQuote = getRandomElement(quotes);
+  res.status(200).send(randomQuote);
+});
+
 app.listen(PORT);

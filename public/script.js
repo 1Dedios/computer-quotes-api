@@ -8,68 +8,75 @@ const attributionText = document.querySelector('.attribution');
 
 const resetQuotes = () => {
   quoteContainer.innerHTML = '';
-}
+};
 
-const renderError = response => {
+const renderError = (response) => {
   quoteContainer.innerHTML = `<p>Your request returned an error from the server: </p>
 <p>Code: ${response.status}</p>
 <p>${response.statusText}</p>`;
-}
+};
+
+// TODO: created renderOneQuote for the random quote button response but might refactor after implementing the use of renderQuotes function
+const renderOneQuote = (quote) => {
+  const newQuote = document.createElement('div');
+  newQuote.className = 'single-quote';
+  newQuote.innerHTML = `<div class="quote-text">${quote.quote}</div> <div class="attribution">- ${quote.person}</div>`;
+  quoteContainer.appendChild(newQuote);
+};
 
 const renderQuotes = (quotes = []) => {
   resetQuotes();
   if (quotes.length > 0) {
-    quotes.forEach(quote => {
+    quotes.forEach((quote) => {
       const newQuote = document.createElement('div');
       newQuote.className = 'single-quote';
-      newQuote.innerHTML = `<div class="quote-text">${quote.quote}</div>
-      <div class="attribution">- ${quote.person}</div>`;
+      newQuote.innerHTML = `<div class="quote-text">${quote.quote}</div> <div class="attribution">- ${quote.person}</div>`;
       quoteContainer.appendChild(newQuote);
     });
   } else {
     quoteContainer.innerHTML = '<p>Your request returned no quotes.</p>';
   }
-}
+};
 
 fetchAllButton.addEventListener('click', () => {
   fetch('/api/quotes')
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      renderError(response);
-    }
-  })
-  .then(response => {
-    renderQuotes(response.quotes);
-  });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        renderError(response);
+      }
+    })
+    .then((response) => {
+      renderQuotes(response.quote);
+    });
 });
 
 fetchRandomButton.addEventListener('click', () => {
   fetch('/api/quotes/random')
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      renderError(response);
-    }
-  })
-  .then(response => {
-    renderQuotes([response.quote]);
-  });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        renderError(response);
+      }
+    })
+    .then((response) => {
+      renderOneQuote(response);
+    });
 });
 
 fetchByAuthorButton.addEventListener('click', () => {
   const author = document.getElementById('author').value;
   fetch(`/api/quotes?person=${author}`)
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      renderError(response);
-    }
-  })
-  .then(response => {
-    renderQuotes(response.quotes);
-  });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        renderError(response);
+      }
+    })
+    .then((response) => {
+      renderQuotes(response.quotes);
+    });
 });
