@@ -1,14 +1,15 @@
 {
-  "name": "quote-api",
+  "name": "computer-quote-api",
   "version": "1.0.0",
   "description": "A small quote-serving JSON API.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "author": "",
+  "author": "dedios",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^5.0.1",
+    "node": "^23.3.0"
   }
 }
