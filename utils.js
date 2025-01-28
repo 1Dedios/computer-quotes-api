@@ -1,6 +1,8 @@
-const getRandomElement = (arr) => {
-  if (!Array.isArray(arr)) throw new Error('Expected an array');
-  return arr[Math.floor(Math.random() * arr.length)];
+const { quotes } = require('./data');
+
+const getRandomElement = () => {
+  if (!Array.isArray(quotes)) throw new Error('Expected an array');
+  return quotes[Math.floor(Math.random() * quotes.length)];
 };
 
 const getAllQuotes = (author = null, arr) => {
@@ -9,7 +11,7 @@ const getAllQuotes = (author = null, arr) => {
   } else {
     // retrieve quotes only for that author
     // arr elements are objects
-    const findAuthorQuote = arr.filter((obj) => {
+    const findAuthorQuote = quotes.filter((obj) => {
       obj.keys(author) === author;
     });
     return findAuthorQuote;
