@@ -1,3 +1,4 @@
+const inputVal = document.getElementById('author').value;
 const fetchAllButton = document.getElementById('fetch-quotes');
 const fetchRandomButton = document.getElementById('fetch-random');
 const fetchByAuthorButton = document.getElementById('fetch-by-author');
@@ -6,6 +7,7 @@ const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.querySelector('.quote');
 const attributionText = document.querySelector('.attribution');
 
+// TODO: all render and reset functions should be their own module
 const resetQuotes = () => {
   quoteContainer.innerHTML = '';
 };
@@ -38,8 +40,10 @@ const renderQuotes = (quotes = []) => {
   }
 };
 
-fetchAllButton.addEventListener('click', () => {
-  fetch('/api/quotes')
+// TODO: need to create an input val sanitation function to accept user input
+
+fetchByAuthorButton.addEventListener('click', () => {
+  fetch(`/api/quotes?person=${inputVal}`)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -48,7 +52,7 @@ fetchAllButton.addEventListener('click', () => {
       }
     })
     .then((response) => {
-      renderQuotes(response.quote);
+      renderQuotes(response.quotes);
     });
 });
 
@@ -66,9 +70,8 @@ fetchRandomButton.addEventListener('click', () => {
     });
 });
 
-fetchByAuthorButton.addEventListener('click', () => {
-  const author = document.getElementById('author').value;
-  fetch(`/api/quotes?person=${author}`)
+fetchAllButton.addEventListener('click', () => {
+  fetch('/api/quotes')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -77,6 +80,6 @@ fetchByAuthorButton.addEventListener('click', () => {
       }
     })
     .then((response) => {
-      renderQuotes(response.quotes);
+      renderQuotes(response);
     });
 });
