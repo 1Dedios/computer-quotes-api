@@ -1,5 +1,4 @@
 const quotes = require('./data');
-const mockData = require('./tests/data.mock');
 
 const getRandomElement = () => {
   if (!Array.isArray(quotes)) throw new Error('Expected an array');
