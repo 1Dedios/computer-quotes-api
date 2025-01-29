@@ -12,13 +12,10 @@ app.get('/', (req, res, next) => {
 app.get('/api/quotes', (req, res, next) => {
   if (req.query.person) {
     const getAuthorQuotes = getAllQuotes(req.query.person);
+    if (getAuthorQuotes.length === 0) res.status(200).send([]);
     res.status(200).send(getAuthorQuotes);
-  } else if (!req.query.person) {
-    console.log(getAllQuotes());
-    res.status(200).send(getAllQuotes());
   } else {
-    // send back an empty array
-    res.send(204).status(getAllQuotes);
+    res.status(200).send(getAllQuotes());
   }
 });
 
