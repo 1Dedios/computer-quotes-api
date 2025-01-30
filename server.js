@@ -5,10 +5,6 @@ const { getRandomElement, getAllQuotes } = require('./utils');
 
 app.use(express.static('public'));
 
-app.get('/', (req, res, next) => {
-  res.status(200).send('public');
-});
-
 app.get('/api/quotes', (req, res, next) => {
   if (req.query.person) {
     const getAuthorQuotes = getAllQuotes(req.query.person);
