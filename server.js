@@ -13,11 +13,13 @@ app.get('/api/quotes', (req, res, next) => {
   } else {
     res.status(200).send(getAllQuotes());
   }
+  next();
 });
 
 app.get('/api/quotes/random', (req, res, next) => {
   const randomQuote = getRandomElement();
   res.status(200).send(randomQuote);
+  next();
 });
 
 app.listen(PORT, () => {
