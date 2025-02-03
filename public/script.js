@@ -1,4 +1,3 @@
-const inputVal = document.getElementById('author').value;
 const fetchAllButton = document.getElementById('fetch-quotes');
 const fetchRandomButton = document.getElementById('fetch-random');
 const fetchByAuthorButton = document.getElementById('fetch-by-author');
@@ -40,11 +39,21 @@ const renderQuotes = (quotes = []) => {
   }
 };
 
-// TODO: need to create an input val sanitation function to accept user input
+// TODO: implement fetch by author
 
 fetchByAuthorButton.addEventListener('click', () => {
-  fetch(`/api/quotes?person=${inputVal}`)
+  const userSearch = document.getElementById('author')?.value;
+  const searchQuery = new URLSearchParams({ person: userSearch.trim() });
+  const url = `/api/quotes?${searchQuery}`;
+  console.log('url:', url);
+
+  fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
     .then((response) => {
+      console.log(response);
       if (response.ok) {
         return response.json();
       } else {
