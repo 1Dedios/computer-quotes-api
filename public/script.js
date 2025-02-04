@@ -43,26 +43,28 @@ const renderQuotes = (quotes = []) => {
 
 fetchByAuthorButton.addEventListener('click', () => {
   const userSearch = document.getElementById('author')?.value;
-  const searchQuery = new URLSearchParams({ person: userSearch.trim() });
-  const url = `/api/quotes?${searchQuery}`;
+  let url;
+
+  if (userSearch) {
+    console.log('user search not empty: ', userSearch);
+    const searchQuery = new URLSearchParams({
+      person: userSearch.toString().trim(),
+    });
+    url = `/api/quotes?${searchQuery}`;
+  } else {
+    url = '/api/quotes';
+  }
+
   console.log('url:', url);
 
-  fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  fetch(url)
     .then((response) => {
       console.log(response);
       if (response.ok) {
-        return response.json();
-      } else {
-        renderError(response);
+        renderQuotes(response.quotes);
       }
     })
-    .then((response) => {
-      renderQuotes(response.quotes);
-    });
+    .catch((e) => renderError(e));
 });
 
 fetchRandomButton.addEventListener('click', () => {
